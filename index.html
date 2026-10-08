@@ -525,14 +525,14 @@ html.lb-open, html.lb-open body { overflow: hidden; }
 const PHONE = "77017591615"; // демо: заявки приходят Юле
 const PREPAY = 5000;
 // Цена работы повара по числу гостей. null = «уточните у повара».
+// первые 19 гостей по 5 000 ₸, каждый следующий по 4 500 ₸: больше гостей никогда не стоит дешевле
 function chefPrice(g) {
-  if (g >= 20) return 4500 * g;
-  if (g >= 1) return 5000 * g;
-  return null;
+  if (g < 1) return null;
+  return Math.min(g, 19) * 5000 + Math.max(0, g - 19) * 4500;
 }
 const TIERS = [
-  { label: "до 19 человек", text: "5 000 ₸", unit: "с человека", test: g => g >= 1 && g <= 19 },
-  { label: "от 20 человек", text: "4 500 ₸", unit: "с человека", test: g => g >= 20 }
+  { label: "первые 19 гостей", text: "5 000 ₸", unit: "с человека", test: g => g >= 1 && g <= 19 },
+  { label: "с 20-го гостя", text: "4 500 ₸", unit: "за каждого следующего", test: g => g >= 20 }
 ];
 // Разделы, из которых клиент выбирает. limit = сколько блюд входит в стоимость.
 const CATS = [
@@ -862,7 +862,7 @@ function watchSections() {
 }
 
 /* gallery */
-const PHOTOS = ["u1", "u2", "u3", "u4", "u5", "u6"];
+const PHOTOS = ["p1", "p2", "p3", "p4", "p5", "p6"];
 $("#gallery").innerHTML = PHOTOS.map((f, i) =>
   `<button class="shot" type="button" data-shot="${i}" aria-label="Открыть фото ${i + 1}"><img src="img/t/sm/${f}.webp" alt="Праздничный стол" width="420" height="560" loading="lazy"></button>`).join("");
 let lbIndex = 0, lbFocus = null;
