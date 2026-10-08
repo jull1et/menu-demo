@@ -437,7 +437,7 @@ html.lb-open, html.lb-open body { overflow: hidden; }
 
   <section class="cat" id="photos">
     <h2>Мои столы</h2>
-    <p class="cat-note">Фото с банкетов, которые я готовила</p>
+    <p class="cat-note">Фото накрытых столов</p>
     <div class="gallery" id="gallery"></div>
     <a class="insta" href="https://www.instagram.com/instagram/" target="_blank" rel="noopener">Больше моих работ в Instagram<span>@instagram</span></a>
   </section>
@@ -526,17 +526,13 @@ const PHONE = "77017591615"; // демо: заявки приходят Юле
 const PREPAY = 5000;
 // Цена работы повара по числу гостей. null = «уточните у повара».
 function chefPrice(g) {
-  if (g >= 8 && g <= 10) return 40000;
-  if (g >= 11 && g <= 15) return 50000;
-  if (g >= 16 && g <= 19) return 4000 * g;
-  if (g >= 20) return 3500 * g;
+  if (g >= 20) return 4500 * g;
+  if (g >= 1) return 5000 * g;
   return null;
 }
 const TIERS = [
-  { label: "8-10 человек", text: "40 000 ₸", test: g => g >= 8 && g <= 10 },
-  { label: "11-15 человек", text: "50 000 ₸", test: g => g >= 11 && g <= 15 },
-  { label: "16-19 человек", text: "4 000 ₸", unit: "с человека", test: g => g >= 16 && g <= 19 },
-  { label: "от 20 человек", text: "3 500 ₸", unit: "с человека", test: g => g >= 20 }
+  { label: "до 19 человек", text: "5 000 ₸", unit: "с человека", test: g => g >= 1 && g <= 19 },
+  { label: "от 20 человек", text: "4 500 ₸", unit: "с человека", test: g => g >= 20 }
 ];
 // Разделы, из которых клиент выбирает. limit = сколько блюд входит в стоимость.
 const CATS = [
@@ -866,7 +862,7 @@ function watchSections() {
 }
 
 /* gallery */
-const PHOTOS = ["d10", "d4", "d9", "d11", "d12", "d14"];
+const PHOTOS = ["u1", "u2", "u3", "u4", "u5", "u6"];
 $("#gallery").innerHTML = PHOTOS.map((f, i) =>
   `<button class="shot" type="button" data-shot="${i}" aria-label="Открыть фото ${i + 1}"><img src="img/t/sm/${f}.webp" alt="Праздничный стол" width="420" height="560" loading="lazy"></button>`).join("");
 let lbIndex = 0, lbFocus = null;
